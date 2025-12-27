@@ -1,15 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2 class="text-xl font-semibold mb-4">Teams</h2>
-  <ul class="space-y-2">
-    {% for t in teams %}
-      <li class="p-3 bg-slate-50 rounded">
-        <a class="text-blue-600 font-medium" href="{% url 'teams:team_detail' t.pk %}">{{ t.name }}</a>
-        <div class="text-sm text-slate-600">{{ t.description|default:'-' }}</div>
-      </li>
-    {% empty %}
-      <li class="p-3 bg-slate-50 rounded">No teams found.</li>
-    {% endfor %}
-  </ul>
+<div class="flex justify-between items-center mb-6">
+  <h2 class="text-2xl font-bold text-white">Maintenance Teams</h2>
+  <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+    Add Team
+  </a>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for t in teams %}
+  <div class="bg-card border border-border rounded-lg p-6 hover:border-blue-900/50 transition-all group">
+    <div class="flex justify-between items-start mb-4">
+      <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+        <a href="{% url 'teams:team_detail' t.pk %}">{{ t.name }}</a>
+      </h3>
+      <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-900/30 text-blue-400 border border-blue-800/50">
+        Team
+      </span>
+    </div>
+    <p class="text-sm text-muted-foreground line-clamp-2 mb-4">{{ t.description|default:"No description provided." }}</p>
+    <div class="pt-4 border-t border-border flex justify-between items-center">
+      <span class="text-xs text-muted-foreground">{{ t.company|default:"-" }}</span>
+      <a href="{% url 'teams:team_detail' t.pk %}" class="text-xs font-bold text-blue-400 hover:underline">View Details →</a>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-span-full bg-card border border-border border-dashed p-12 text-center rounded-lg">
+    <p class="text-muted-foreground">No teams found in the registry.</p>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

@@ -1,15 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2 class="text-xl font-semibold mb-2">{{ team.name }}</h2>
-  <p class="text-sm text-slate-600 mb-4">{{ team.description }}</p>
+<div class="mb-6">
+  <nav class="flex mb-4 text-sm text-muted-foreground" aria-label="Breadcrumb">
+    <a href="{% url 'teams:team_list' %}" class="hover:text-white transition-colors">Teams</a>
+    <span class="mx-2">/</span>
+    <span class="text-white font-medium">{{ team.name }}</span>
+  </nav>
+  <h2 class="text-3xl font-bold text-white mb-2">{{ team.name }}</h2>
+  <p class="text-muted-foreground">{{ team.description|default:"Internal maintenance and repair team." }}</p>
+</div>
 
-  <h3 class="font-medium mb-2">Work Centers</h3>
-  <ul class="space-y-2">
-    {% for wc in workcenters %}
-      <li class="p-3 bg-slate-50 rounded">{{ wc.name }} — {{ wc.code }}</li>
-    {% empty %}
-      <li class="p-3 bg-slate-50 rounded">No work centers.</li>
-    {% endfor %}
-  </ul>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2">
+    <div class="bg-card border border-border rounded-lg overflow-hidden">
+      <div class="px-6 py-4 border-b border-border flex justify-between items-center">
+        <h3 class="font-bold text-white uppercase tracking-wider text-xs">Responsible Work Centers</h3>
+      </div>
+      <table class="w-full text-left">
+        <thead class="bg-muted/50 border-b border-border">
+          <tr>
+            <th class="px-6 py-3 text-xs font-bold uppercase text-muted-foreground">Work Center</th>
+            <th class="px-6 py-3 text-xs font-bold uppercase text-muted-foreground">Code</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          {% for wc in workcenters %}
+          <tr class="hover:bg-accent/50 transition-colors">
+            <td class="px-6 py-4 font-medium text-blue-400">{{ wc.name }}</td>
+            <td class="px-6 py-4 text-sm text-slate-300 font-mono">{{ wc.code }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="2" class="px-6 py-8 text-center text-muted-foreground">
+              No work centers assigned to this team.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+    <div class="bg-card border border-border rounded-lg p-6">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-4">Team Info</h3>
+      <dl class="space-y-4">
+        <div class="flex justify-between items-center border-b border-border pb-2">
+          <dt class="text-sm text-muted-foreground">Company</dt>
+          <dd class="text-sm font-medium text-white">{{ team.company|default:"-" }}</dd>
+        </div>
+        <div class="flex justify-between items-center">
+          <dt class="text-sm text-muted-foreground">Active Load</dt>
+          <dd class="text-sm font-medium text-green-400">Low</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>
 {% endblock %}

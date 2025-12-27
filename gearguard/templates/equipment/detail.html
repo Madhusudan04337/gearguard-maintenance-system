@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="text-xl font-semibold mb-2">{{ equipment.name }}</h2>
+  <p class="text-sm text-slate-600 mb-2">Code: {{ equipment.code }} | Status: {{ equipment.status }}</p>
+  <p class="mb-4">{{ equipment.description }}</p>
+
+  <dl class="grid grid-cols-2 gap-2 bg-slate-50 p-4 rounded">
+    <div><dt class="font-medium">Category</dt><dd>{{ equipment.category }}</dd></div>
+    <div><dt class="font-medium">Serial</dt><dd>{{ equipment.serial_number }}</dd></div>
+    <div><dt class="font-medium">Work Center</dt><dd>{{ equipment.work_center }}</dd></div>
+    <div><dt class="font-medium">Team</dt><dd>{{ equipment.team }}</dd></div>
+  </dl>
+{% endblock %}

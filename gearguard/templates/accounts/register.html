@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-[60vh]">
+  <div class="w-full max-w-md">
+    <!-- Updated to dark theme with border and card background -->
+    <div class="bg-card border border-border rounded-xl p-8">
+      <h2 class="text-2xl font-black mb-2 tracking-tight">Create Account</h2>
+      <p class="text-sm text-muted-foreground mb-6">Join GearGuard to start tracking maintenance</p>
+      
+      <form method="post" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+        {% for field in form %}
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">{{ field.label }}</label>
+            <!-- Updated input styling to dark theme -->
+            {% if field.field.widget.input_type == 'file' %}
+              <input 
+                type="file" 
+                name="{{ field.name }}" 
+                class="w-full px-4 py-2 bg-input border border-border rounded text-foreground file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-bold file:bg-white file:text-black hover:file:bg-slate-200"
+                {% if field.field.required %}required{% endif %}
+              >
+            {% else %}
+              <input 
+                type="{{ field.field.widget.input_type }}" 
+                name="{{ field.name }}" 
+                class="w-full px-4 py-2 bg-input border border-border rounded text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                {% if field.value %}value="{{ field.value }}"{% endif %}
+                {% if field.field.required %}required{% endif %}
+              >
+            {% endif %}
+            {% if field.errors %}
+              <p class="text-xs text-red-400 mt-1">{{ field.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+          <div class="p-3 bg-red-500/10 border border-red-500/20 rounded text-xs text-red-400">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="pt-2">
+          <button type="submit" class="w-full px-4 py-2.5 bg-white text-black font-black uppercase tracking-widest text-xs rounded hover:bg-slate-200 transition-colors">
+            Create account
+          </button>
+        </div>
+      </form>
+    </div>
+    <p class="mt-4 text-center text-sm text-muted-foreground">
+      Already have an account? 
+      <a class="text-blue-500 hover:text-blue-400 font-bold" href="{% url 'accounts:login' %}">Login</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

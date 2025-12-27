@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+  <h2 class="text-2xl font-bold text-white">Work Centers</h2>
+</div>
+
+<div class="bg-card border border-border rounded-lg overflow-hidden">
+  <table class="w-full text-left">
+    <thead class="bg-muted/50 border-b border-border">
+      <tr>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Work Center</th>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Code</th>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Tag</th>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Capacity Eff.</th>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">OEE Target</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-border">
+      {% for wc in workcenters %}
+      <tr class="hover:bg-accent/50 transition-colors">
+        <td class="px-4 py-4">
+          <a href="{% url 'teams:workcenter_detail' wc.pk %}" class="font-medium text-blue-400 hover:text-blue-300">
+            {{ wc.name }}
+          </a>
+        </td>
+        <td class="px-4 py-4 text-sm text-slate-300">
+          {{ wc.code|default:"-" }}
+        </td>
+        <td class="px-4 py-4 text-sm text-slate-300">
+          {{ wc.tag|default:"-" }}
+        </td>
+        <td class="px-4 py-4 text-sm text-slate-300">
+          {{ wc.capacity_efficiency }}%
+        </td>
+        <td class="px-4 py-4 text-sm text-slate-300">
+          {{ wc.oee_target }}%
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="px-4 py-8 text-center text-muted-foreground">
+          No work centers found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

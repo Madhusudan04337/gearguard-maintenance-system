@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="text-xl font-semibold mb-2">{{ team.name }}</h2>
+  <p class="text-sm text-slate-600 mb-4">{{ team.description }}</p>
+
+  <h3 class="font-medium mb-2">Work Centers</h3>
+  <ul class="space-y-2">
+    {% for wc in workcenters %}
+      <li class="p-3 bg-slate-50 rounded">{{ wc.name }} — {{ wc.code }}</li>
+    {% empty %}
+      <li class="p-3 bg-slate-50 rounded">No work centers.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

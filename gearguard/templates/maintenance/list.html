@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+  <h2 class="text-2xl font-bold">Maintenance Requests</h2>
+  <a href="{% url 'maintenance_create' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+    New Request
+  </a>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+  <div class="stat-card border-red-900/50 bg-red-950/10">
+    <span class="text-xs uppercase tracking-wider text-red-500 font-bold">Critical Equipment</span>
+    <span class="text-3xl font-bold text-red-400">5 Units</span>
+    <span class="text-xs text-red-500/70">(Health < 30%)</span>
+  </div>
+  <div class="stat-card border-blue-900/50 bg-blue-950/10">
+    <span class="text-xs uppercase tracking-wider text-blue-500 font-bold">Technician Load</span>
+    <span class="text-3xl font-bold text-blue-400">85% Utilized</span>
+    <span class="text-xs text-blue-500/70">(Assign Carefully)</span>
+  </div>
+  <div class="stat-card border-green-900/50 bg-green-950/10">
+    <span class="text-xs uppercase tracking-wider text-green-500 font-bold">Open Requests</span>
+    <span class="text-3xl font-bold text-green-400">{{ requests.count }} Pending</span>
+    <span class="text-xs text-green-500/70">3 Overdue</span>
+  </div>
+</div>
+
+<div class="bg-card border border-border rounded-lg overflow-hidden">
+  <table class="w-full text-left">
+    <thead class="bg-muted/50 border-b border-border">
+      <tr>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Subject</th>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Equipment/WC</th>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Priority</th>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Status</th>
+        <th class="px-4 py-3 text-xs font-bold uppercase text-muted-foreground">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-border">
+      {% for r in requests %}
+      <tr class="hover:bg-accent/50 transition-colors">
+        <td class="px-4 py-4">
+          <div class="font-medium">{{ r.subject }}</div>
+          <div class="text-xs text-muted-foreground">{{ r.request_date }}</div>
+        </td>
+        <td class="px-4 py-4">
+          <div class="text-sm">{% if r.maintenance_for == 'equipment' %}{{ r.equipment }}{% else %}{{ r.work_center }}{% endif %}</div>
+          <div class="text-xs text-muted-foreground uppercase">{{ r.maintenance_for }}</div>
+        </td>
+        <td class="px-4 py-4">
+          <span class="px-2 py-1 rounded text-xs font-bold 
+            {% if r.priority == 3 %}bg-red-900/30 text-red-400 border border-red-800/50
+            {% elif r.priority == 2 %}bg-yellow-900/30 text-yellow-400 border border-yellow-800/50
+            {% else %}bg-blue-900/30 text-blue-400 border border-blue-800/50{% endif %}">
+            {{ r.get_priority_display }}
+          </span>
+        </td>
+        <td class="px-4 py-4">
+          <span class="text-sm">{{ r.get_stage_display }}</span>
+        </td>
+        <td class="px-4 py-4">
+          <a href="{% url 'maintenance_edit' r.pk %}" class="text-blue-400 hover:text-blue-300 text-sm">Edit</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="px-4 py-8 text-center text-muted-foreground">
+          No maintenance requests found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

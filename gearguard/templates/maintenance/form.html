@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <h2 class="text-2xl font-bold mb-6 text-white">{{ title }}</h2>
+  
+  <form method="post" class="space-y-6 bg-card border border-border rounded-xl p-8 shadow-2xl">
+    {% csrf_token %}
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="md:col-span-2">
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Subject / Title</label>
+        {{ form.subject }}
+      </div>
+      
+      <div>
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Maintenance For</label>
+        {{ form.maintenance_for }}
+      </div>
+      
+      <div id="equipment-field">
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Equipment</label>
+        {{ form.equipment }}
+      </div>
+      
+      <div id="work-center-field">
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Work Center</label>
+        {{ form.work_center }}
+      </div>
+      
+      <div>
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Technician</label>
+        {{ form.technician }}
+      </div>
+      
+      <div>
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Team</label>
+        {{ form.team }}
+      </div>
+      
+      <div>
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Scheduled Date</label>
+        {{ form.scheduled_date }}
+      </div>
+      
+      <div>
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Duration (HH:MM:SS)</label>
+        {{ form.duration }}
+      </div>
+      
+      <div>
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Priority</label>
+        {{ form.priority }}
+      </div>
+      
+      <div>
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Maintenance Type</label>
+        <div class="flex gap-6 mt-2 text-white">
+          {{ form.maintenance_type }}
+        </div>
+      </div>
+      
+      <div class="md:col-span-2">
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Notes</label>
+        {{ form.notes }}
+      </div>
+      
+      <div class="md:col-span-2">
+        <label class="block text-sm font-bold text-muted-foreground mb-2 uppercase tracking-wide">Instructions</label>
+        {{ form.instructions }}
+      </div>
+    </div>
+    
+    <div class="pt-6 border-t border-border flex justify-end gap-4">
+      <a href="{% url 'maintenance_list' %}" class="px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-md font-medium transition-colors">Cancel</a>
+      <button type="submit" class="px-8 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md font-bold transition-all shadow-lg shadow-blue-500/20">
+        Save Request
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const typeField = document.querySelector('[name="maintenance_for"]');
+  const eqContainer = document.getElementById('equipment-field');
+  const wcContainer = document.getElementById('work-center-field');
+
+  function toggleFields() {
+    if (typeField.value === 'equipment') {
+      eqContainer.style.display = 'block';
+      wcContainer.style.display = 'none';
+    } else {
+      eqContainer.style.display = 'none';
+      wcContainer.style.display = 'block';
+    }
+  }
+
+  typeField.addEventListener('change', toggleFields);
+  toggleFields();
+</script>
+{% endblock %}

@@ -60,7 +60,7 @@ ROOT_URLCONF = 'gearguard.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,18 +92,79 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'OPTIONS': {
+            # Check similarity against these user attributes
+            'user_attributes': ('username', 'first_name', 'last_name', 'email'),
+            # Maximum allowed similarity (0.0 = no similarity, 1.0 = identical)
+            'max_similarity': 0.7,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            # Increased minimum length for better security
+            'min_length': 12,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'OPTIONS': {
+            # Optional: Specify custom common passwords file
+            # 'password_list_path': BASE_DIR / 'security' / 'common_passwords.txt',
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        # Prevents passwords that are entirely numeric
+    },
+    # Custom validators for enhanced security
+    {
+        'NAME': 'gearguard.validators.ComplexityPasswordValidator',
+        'OPTIONS': {
+            'min_uppercase': 1,
+            'min_lowercase': 1,
+            'min_digits': 1,
+            'min_special': 1,
+        }
+    },
+    {
+        'NAME': 'gearguard.validators.RepeatingCharacterValidator',
+        'OPTIONS': {
+            'max_repeating': 3,
+        }
+    },
+    {
+        'NAME': 'gearguard.validators.SequentialCharacterValidator',
+        'OPTIONS': {
+            'max_sequential': 3,
+        }
     },
 ]
 
+# Enhanced password security settings
+PASSWORD_RESET_TIMEOUT = 3600  # 1 hour (more secure than default 3 days)
+
+# Password hashing configuration (ordered by preference)
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',  # Most secure, recommended
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
+
+
+# Session and cookie security for password-related operations
+SESSION_COOKIE_SECURE = not DEBUG  # Use secure cookies in production
+SESSION_COOKIE_HTTPONLY = True  # Prevent XSS attacks
+SESSION_COOKIE_SAMESITE = 'Lax'  # CSRF protection
+SESSION_COOKIE_AGE = 3600  # 1 hour session timeout
+CSRF_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_HTTPONLY = True
+
+# Additional security headers
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -121,3 +182,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Login redirect settings to prevent 404 on accounts/profile/
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'accounts:login'

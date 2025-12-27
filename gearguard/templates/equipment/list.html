@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="text-xl font-semibold mb-4">Equipment</h2>
+  <p class="text-sm text-slate-600">This is a placeholder equipment list template. Wire a view to supply `equipment_list`.</p>
+  <ul class="mt-4 space-y-2">
+    {% for eq in equipment_list %}
+      <li class="p-3 bg-slate-50 rounded-md">{{ eq.name }} — {{ eq.code }} — {{ eq.status }}</li>
+    {% empty %}
+      <li class="p-3 bg-slate-50 rounded-md">No equipment yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

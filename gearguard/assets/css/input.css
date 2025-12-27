@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* <CHANGE> Removed conflicting .app-card with bg-white */
+.app-container { @apply max-w-6xl mx-auto p-4; }

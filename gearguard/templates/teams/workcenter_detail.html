@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-6 flex items-center gap-4">
+  <a href="{% url 'teams:workcenter_list' %}" class="text-muted-foreground hover:text-white transition-colors">
+    ← Back
+  </a>
+  <h2 class="text-2xl font-bold text-white">{{ workcenter.name }}</h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div class="space-y-6">
+    <div class="bg-card border border-border rounded-xl p-6">
+      <h3 class="text-sm font-bold uppercase text-muted-foreground mb-4">Center Details</h3>
+      <dl class="space-y-4">
+        <div class="flex justify-between border-b border-border pb-2">
+          <dt class="text-sm text-muted-foreground">Code</dt>
+          <dd class="text-sm font-medium">{{ workcenter.code }}</dd>
+        </div>
+        <div class="flex justify-between border-b border-border pb-2">
+          <dt class="text-sm text-muted-foreground">Tag</dt>
+          <dd class="text-sm font-medium">{{ workcenter.tag }}</dd>
+        </div>
+        <div class="flex justify-between border-b border-border pb-2">
+          <dt class="text-sm text-muted-foreground">Cost per Hour</dt>
+          <dd class="text-sm font-medium">${{ workcenter.cost_per_hour }}</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+    <div class="bg-card border border-border rounded-xl p-6">
+      <h3 class="text-sm font-bold uppercase text-muted-foreground mb-4">Performance Metrics</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-4 bg-blue-950/20 border border-blue-900/30 rounded-lg">
+          <div class="text-xs text-blue-400 font-bold uppercase mb-1">Capacity Efficiency</div>
+          <div class="text-2xl font-bold">{{ workcenter.capacity_efficiency }}%</div>
+        </div>
+        <div class="p-4 bg-green-950/20 border border-green-900/30 rounded-lg">
+          <div class="text-xs text-green-400 font-bold uppercase mb-1">OEE Target</div>
+          <div class="text-2xl font-bold">{{ workcenter.oee_target }}%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

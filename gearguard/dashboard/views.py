@@ -1,9 +1,11 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from equipment.models import Equipment
 from maintenance.models import MaintenanceRequest
 from teams.models import Team
 
 
+@login_required
 def home(request):
     """Render the dashboard home page with metrics."""
     equipment_count = Equipment.objects.count()

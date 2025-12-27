@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <!-- Profile header section -->
+    <div class="bg-gradient-to-r from-blue-500/10 to-teal-500/10 border border-blue-500/20 rounded-lg p-8 mb-6">
+        <div class="flex items-start justify-between">
+            <div class="flex items-center gap-4">
+                {% if user_profile.avatar %}
+                <img src="{{ user_profile.avatar.url }}" alt="{{ user.username }}"
+                    class="w-20 h-20 rounded-full border-2 border-blue-500">
+                {% else %}
+                <div
+                    class="w-20 h-20 bg-gradient-to-tr from-blue-500 to-teal-400 rounded-full flex items-center justify-center">
+                    <span class="text-2xl font-black text-white">{{ user.username|first|upper }}</span>
+                </div>
+                {% endif %}
+                <div>
+                    <h1 class="text-3xl font-black tracking-tight">{{ user_profile.full_name|default:user.username }}
+                    </h1>
+                    <p class="text-gray-400 text-sm mt-1">{{ user_profile.get_role_display|default:'No role assigned' }}
+                    </p>
+                    <p class="text-gray-500 text-xs mt-2">Member since {{ user.date_joined|date:"F Y" }}</p>
+                </div>
+            </div>
+            <a href="{% url 'accounts:profile_edit' %}"
+                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded font-bold transition-colors">
+                Edit Profile
+            </a>
+        </div>
+    </div>
+
+    <!-- Profile information cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Account Information -->
+        <div class="bg-card border border-border rounded-lg p-6">
+            <h2 class="text-lg font-bold mb-4 text-white">Account Information</h2>
+            <div class="space-y-3">
+                <div>
+                    <p class="text-gray-400 text-sm">Username</p>
+                    <p class="text-white font-semibold">{{ user.username }}</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm">Email</p>
+                    <p class="text-white font-semibold">{{ user.email|default:'Not provided' }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="bg-card border border-border rounded-lg p-6">
+            <h2 class="text-lg font-bold mb-4 text-white">Contact Information</h2>
+            <div class="space-y-3">
+                <div>
+                    <p class="text-gray-400 text-sm">Phone</p>
+                    <p class="text-white font-semibold">{{ user_profile.phone|default:'Not provided' }}</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm">Full Name</p>
+                    <p class="text-white font-semibold">{{ user_profile.full_name|default:'Not provided' }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Work Assignment -->
+        <div class="bg-card border border-border rounded-lg p-6 md:col-span-2">
+            <h2 class="text-lg font-bold mb-4 text-white">Work Assignment</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <p class="text-gray-400 text-sm">Role</p>
+                    <p class="text-white font-semibold">{{ user_profile.get_role_display|default:'Not assigned' }}</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm">Team</p>
+                    {% if user_profile.team %}
+                    <a href="{% url 'teams:team_detail' user_profile.team.id %}"
+                        class="text-blue-400 hover:text-blue-300 font-semibold">
+                        {{ user_profile.team.name }}
+                    </a>
+                    {% else %}
+                    <p class="text-gray-500">Not assigned</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm">Work Center</p>
+                    {% if user_profile.work_center %}
+                    <a href="{% url 'teams:workcenter_detail' user_profile.work_center.id %}"
+                        class="text-blue-400 hover:text-blue-300 font-semibold">
+                        {{ user_profile.work_center.name }}
+                    </a>
+                    {% else %}
+                    <p class="text-gray-500">Not assigned</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account actions section -->
+    <div class="mt-8 p-6 bg-red-500/5 border border-red-500/20 rounded-lg">
+        <h2 class="text-lg font-bold mb-4 text-white">Danger Zone</h2>
+        <p class="text-gray-400 text-sm mb-4">Irreversible actions</p>
+        <a href="{% url 'accounts:logout' %}"
+            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded font-bold transition-colors">
+            Logout
+        </a>
+    </div>
+</div>
+{% endblock %}

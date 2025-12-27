@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-card border border-border rounded-lg p-6">
+
+    <h2 class="text-xl font-bold text-white mb-4">
+        {{ title }}
+    </h2>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div>
+            <label class="block text-sm font-medium text-slate-300 mb-1">
+                {{ field.label }}
+            </label>
+            {{ field }}
+            {% if field.errors %}
+            <p class="text-sm text-red-400 mt-1">
+                {{ field.errors|striptags }}
+            </p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="flex justify-between items-center pt-4">
+            <a href="{% url 'equipment:equipment_list' %}" class="text-sm text-slate-400 hover:text-slate-300">
+                Cancel
+            </a>
+
+            <button type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                Save
+            </button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

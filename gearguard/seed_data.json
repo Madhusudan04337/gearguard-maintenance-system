@@ -1,0 +1,203 @@
+{
+    "users": [
+        {
+            "username": "john_tech",
+            "email": "john@example.com",
+            "first_name": "John",
+            "last_name": "Smith"
+        },
+        {
+            "username": "jane_supervisor",
+            "email": "jane@example.com",
+            "first_name": "Jane",
+            "last_name": "Johnson"
+        },
+        {
+            "username": "mike_engineer",
+            "email": "mike@example.com",
+            "first_name": "Mike",
+            "last_name": "Williams"
+        }
+    ],
+    "equipment_categories": [
+        {
+            "name": "CNC Machines",
+            "responsible_username": "john_tech"
+        },
+        {
+            "name": "Hydraulic Systems",
+            "responsible_username": "mike_engineer"
+        },
+        {
+            "name": "Assembly Equipment",
+            "responsible_username": "jane_supervisor"
+        }
+    ],
+    "work_centers": [
+        {
+            "name": "Production Line A",
+            "code": "PL-A",
+            "tag": "primary",
+            "cost_per_hour": "150.00",
+            "capacity_efficiency": "95.50",
+            "oee_target": "92.00"
+        },
+        {
+            "name": "Production Line B",
+            "code": "PL-B",
+            "tag": "secondary",
+            "cost_per_hour": "120.00",
+            "capacity_efficiency": "88.00",
+            "oee_target": "90.00"
+        },
+        {
+            "name": "Assembly Station",
+            "code": "AS-01",
+            "tag": "assembly",
+            "cost_per_hour": "100.00",
+            "capacity_efficiency": "85.00",
+            "oee_target": "85.00"
+        }
+    ],
+    "teams": [
+        {
+            "name": "Maintenance Team A",
+            "description": "Primary maintenance crew for production lines",
+            "work_center_code": "PL-A"
+        },
+        {
+            "name": "Maintenance Team B",
+            "description": "Secondary maintenance crew",
+            "work_center_code": "PL-B"
+        },
+        {
+            "name": "Assembly Maintenance",
+            "description": "Maintenance team for assembly operations",
+            "work_center_code": "AS-01"
+        }
+    ],
+    "equipment": [
+        {
+            "name": "CNC Machine 1",
+            "company": "Bosch",
+            "category_name": "CNC Machines",
+            "serial_number": "CNC-2024-001",
+            "description": "High precision CNC milling machine",
+            "employee_username": "john_tech",
+            "maintenance_team_name": "Maintenance Team A",
+            "work_center_code": "PL-A",
+            "assigned_date": "2024-01-15",
+            "status": "active"
+        },
+        {
+            "name": "CNC Machine 2",
+            "company": "Bosch",
+            "category_name": "CNC Machines",
+            "serial_number": "CNC-2024-002",
+            "description": "High precision CNC milling machine",
+            "employee_username": "john_tech",
+            "maintenance_team_name": "Maintenance Team A",
+            "work_center_code": "PL-A",
+            "assigned_date": "2024-01-16",
+            "status": "active"
+        },
+        {
+            "name": "Hydraulic System 1",
+            "company": "Siemens",
+            "category_name": "Hydraulic Systems",
+            "serial_number": "HYD-2024-001",
+            "description": "Primary hydraulic system for production",
+            "employee_username": "mike_engineer",
+            "maintenance_team_name": "Maintenance Team B",
+            "work_center_code": "PL-B",
+            "assigned_date": "2024-02-01",
+            "status": "active"
+        },
+        {
+            "name": "Assembly Robot",
+            "company": "FANUC",
+            "category_name": "Assembly Equipment",
+            "serial_number": "ROBOT-2024-001",
+            "description": "Automated assembly robot",
+            "employee_username": "jane_supervisor",
+            "maintenance_team_name": "Assembly Maintenance",
+            "work_center_code": "AS-01",
+            "assigned_date": "2024-03-01",
+            "status": "active"
+        },
+        {
+            "name": "Conveyor System",
+            "company": "Daifuku",
+            "category_name": "Assembly Equipment",
+            "serial_number": "CONV-2024-001",
+            "description": "Main production conveyor system",
+            "employee_username": "jane_supervisor",
+            "maintenance_team_name": "Assembly Maintenance",
+            "work_center_code": "AS-01",
+            "assigned_date": "2024-02-15",
+            "status": "active"
+        }
+    ],
+    "maintenance_requests": [
+        {
+            "subject": "Scheduled maintenance for CNC Machine 1",
+            "maintenance_for": "equipment",
+            "equipment_serial": "CNC-2024-001",
+            "maintenance_type": "preventive",
+            "priority": 2,
+            "stage": "new",
+            "scheduled_date": "2025-01-10T10:00:00",
+            "duration": "02:30:00",
+            "notes": "Regular preventive maintenance",
+            "instructions": "Check lubrication, calibrate tools",
+            "created_by_username": "john_tech",
+            "technician_username": "john_tech",
+            "team_name": "Maintenance Team A"
+        },
+        {
+            "subject": "Hydraulic system pressure test",
+            "maintenance_for": "equipment",
+            "equipment_serial": "HYD-2024-001",
+            "maintenance_type": "preventive",
+            "priority": 2,
+            "stage": "new",
+            "scheduled_date": "2025-01-12T14:00:00",
+            "duration": "01:45:00",
+            "notes": "Monthly pressure testing",
+            "instructions": "Test all pressure points",
+            "created_by_username": "mike_engineer",
+            "technician_username": "mike_engineer",
+            "team_name": "Maintenance Team B"
+        },
+        {
+            "subject": "Assembly robot gripper repair",
+            "maintenance_for": "equipment",
+            "equipment_serial": "ROBOT-2024-001",
+            "maintenance_type": "corrective",
+            "priority": 3,
+            "stage": "new",
+            "scheduled_date": "2025-01-08T09:00:00",
+            "duration": "03:00:00",
+            "notes": "Gripper not closing properly",
+            "instructions": "Replace gripper servo motor",
+            "created_by_username": "jane_supervisor",
+            "technician_username": "jane_supervisor",
+            "team_name": "Assembly Maintenance"
+        },
+        {
+            "subject": "Conveyor belt alignment check",
+            "maintenance_for": "equipment",
+            "equipment_serial": "CONV-2024-001",
+            "maintenance_type": "preventive",
+            "priority": 1,
+            "stage": "new",
+            "scheduled_date": "2025-01-15T11:00:00",
+            "duration": "01:30:00",
+            "notes": "Routine alignment check",
+            "instructions": "Check belt tension and alignment",
+            "created_by_username": "jane_supervisor",
+            "technician_username": "jane_supervisor",
+            "team_name": "Assembly Maintenance"
+        }
+    ]
+}

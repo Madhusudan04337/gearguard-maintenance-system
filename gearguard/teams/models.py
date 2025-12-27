@@ -16,6 +16,7 @@ class WorkCenter(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    company = models.CharField(max_length=200, blank=True, null=True)
     work_center = models.ForeignKey(WorkCenter, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):

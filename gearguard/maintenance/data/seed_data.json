@@ -1,0 +1,339 @@
+{
+    "companies": [
+        {
+            "name": "TechCorp Manufacturing",
+            "code": "TECH-001",
+            "address": "123 Industrial Way, Manufacturing City, CA 90001",
+            "contact_email": "info@techcorp.com",
+            "contact_phone": "+1-800-TECH-001",
+            "industry": "Electronics Manufacturing"
+        },
+        {
+            "name": "Precision Industries Ltd",
+            "code": "PREC-001",
+            "address": "456 Assembly Drive, Industrial Park, TX 75001",
+            "contact_email": "contact@precisionind.com",
+            "contact_phone": "+1-800-PREC-001",
+            "industry": "Automotive Parts"
+        },
+        {
+            "name": "Global Engineering Solutions",
+            "code": "GLOB-001",
+            "address": "789 Production Lane, Factory District, OH 44101",
+            "contact_email": "support@globaleng.com",
+            "contact_phone": "+1-800-GLOB-001",
+            "industry": "Heavy Equipment Manufacturing"
+        }
+    ],
+    "users": [
+        {
+            "username": "admin",
+            "email": "admin@gearguard.com",
+            "password": "Admin@123456",
+            "first_name": "Admin",
+            "last_name": "User",
+            "is_staff": true,
+            "is_superuser": true
+        },
+        {
+            "username": "technician1",
+            "email": "tech1@gearguard.com",
+            "password": "Tech@123456",
+            "first_name": "John",
+            "last_name": "Technician",
+            "is_staff": false
+        },
+        {
+            "username": "technician2",
+            "email": "tech2@gearguard.com",
+            "password": "Tech@123456",
+            "first_name": "Jane",
+            "last_name": "Maintenance",
+            "is_staff": false
+        },
+        {
+            "username": "supervisor",
+            "email": "supervisor@gearguard.com",
+            "password": "Super@123456",
+            "first_name": "Mike",
+            "last_name": "Supervisor",
+            "is_staff": true
+        }
+    ],
+    "work_centers": [
+        {
+            "name": "Assembly Line 1",
+            "code": "AL-001",
+            "tag": "production",
+            "cost_per_hour": "85.50",
+            "capacity_efficiency": "95.00",
+            "oee_target": "90.00"
+        },
+        {
+            "name": "Assembly Line 2",
+            "code": "AL-002",
+            "tag": "production",
+            "cost_per_hour": "85.50",
+            "capacity_efficiency": "92.00",
+            "oee_target": "90.00"
+        },
+        {
+            "name": "Packaging Station",
+            "code": "PKG-001",
+            "tag": "packaging",
+            "cost_per_hour": "45.00",
+            "capacity_efficiency": "98.00",
+            "oee_target": "95.00"
+        },
+        {
+            "name": "Quality Control",
+            "code": "QC-001",
+            "tag": "inspection",
+            "cost_per_hour": "65.00",
+            "capacity_efficiency": "88.00",
+            "oee_target": "85.00"
+        }
+    ],
+    "equipment_categories": [
+        {
+            "name": "CNC Machines",
+            "responsible": "admin"
+        },
+        {
+            "name": "Hydraulic Systems",
+            "responsible": "technician1"
+        },
+        {
+            "name": "Conveyor Systems",
+            "responsible": "technician2"
+        },
+        {
+            "name": "Electrical Equipment",
+            "responsible": "supervisor"
+        },
+        {
+            "name": "Pneumatic Tools",
+            "responsible": "admin"
+        }
+    ],
+    "teams": [
+        {
+            "name": "Maintenance Team Alpha",
+            "description": "Specialized in CNC and precision equipment maintenance",
+            "company": "TechCorp Manufacturing",
+            "work_center": "Assembly Line 1"
+        },
+        {
+            "name": "Maintenance Team Beta",
+            "description": "Focused on hydraulic and pneumatic systems",
+            "company": "TechCorp Manufacturing",
+            "work_center": "Assembly Line 2"
+        },
+        {
+            "name": "Electrical Team",
+            "description": "Handles all electrical systems and wiring",
+            "company": "Precision Industries Ltd",
+            "work_center": "Packaging Station"
+        },
+        {
+            "name": "Support Team",
+            "description": "General maintenance and troubleshooting",
+            "company": "Global Engineering Solutions",
+            "work_center": "Quality Control"
+        }
+    ],
+    "equipment": [
+        {
+            "name": "CNC Machine Model X2000",
+            "category": "CNC Machines",
+            "serial_number": "CNM-2024-001",
+            "description": "High precision CNC milling machine for complex parts",
+            "employee": "technician1",
+            "maintenance_team": "Maintenance Team Alpha",
+            "company": "TechCorp Manufacturing",
+            "work_center": "Assembly Line 1",
+            "status": "active"
+        },
+        {
+            "name": "CNC Machine Model X3000",
+            "category": "CNC Machines",
+            "serial_number": "CNM-2024-002",
+            "description": "Advanced CNC turning machine",
+            "employee": "technician2",
+            "maintenance_team": "Maintenance Team Alpha",
+            "company": "TechCorp Manufacturing",
+            "work_center": "Assembly Line 1",
+            "status": "active"
+        },
+        {
+            "name": "Hydraulic Press Station 1",
+            "category": "Hydraulic Systems",
+            "serial_number": "HYD-2024-001",
+            "description": "Heavy-duty hydraulic press for stamping operations",
+            "employee": "technician1",
+            "maintenance_team": "Maintenance Team Beta",
+            "company": "TechCorp Manufacturing",
+            "work_center": "Assembly Line 2",
+            "status": "active"
+        },
+        {
+            "name": "Hydraulic Press Station 2",
+            "category": "Hydraulic Systems",
+            "serial_number": "HYD-2024-002",
+            "description": "Hydraulic press for secondary operations",
+            "employee": null,
+            "maintenance_team": "Maintenance Team Beta",
+            "company": "TechCorp Manufacturing",
+            "work_center": "Assembly Line 2",
+            "status": "under_maintenance"
+        },
+        {
+            "name": "Main Conveyor Belt System",
+            "category": "Conveyor Systems",
+            "serial_number": "CONV-2024-001",
+            "description": "Primary conveyor belt for product movement",
+            "employee": "technician2",
+            "maintenance_team": "Maintenance Team Beta",
+            "company": "Precision Industries Ltd",
+            "work_center": "Packaging Station",
+            "status": "active"
+        },
+        {
+            "name": "Secondary Conveyor Belt",
+            "category": "Conveyor Systems",
+            "serial_number": "CONV-2024-002",
+            "description": "Secondary conveyor for quality control area",
+            "employee": null,
+            "maintenance_team": "Support Team",
+            "company": "Global Engineering Solutions",
+            "work_center": "Quality Control",
+            "status": "active"
+        },
+        {
+            "name": "Electrical Control Panel A",
+            "category": "Electrical Equipment",
+            "serial_number": "ECP-2024-001",
+            "description": "Main electrical control panel for assembly line 1",
+            "employee": "supervisor",
+            "maintenance_team": "Electrical Team",
+            "company": "Precision Industries Ltd",
+            "work_center": "Assembly Line 1",
+            "status": "active"
+        },
+        {
+            "name": "Electrical Control Panel B",
+            "category": "Electrical Equipment",
+            "serial_number": "ECP-2024-002",
+            "description": "Main electrical control panel for assembly line 2",
+            "employee": null,
+            "maintenance_team": "Electrical Team",
+            "company": "Precision Industries Ltd",
+            "work_center": "Assembly Line 2",
+            "status": "active"
+        },
+        {
+            "name": "Pneumatic Drill Set",
+            "category": "Pneumatic Tools",
+            "serial_number": "PNEU-2024-001",
+            "description": "Pneumatic drill and fastening tools",
+            "employee": "technician1",
+            "maintenance_team": "Maintenance Team Alpha",
+            "company": "TechCorp Manufacturing",
+            "work_center": "Assembly Line 1",
+            "status": "active"
+        },
+        {
+            "name": "Pneumatic Impact Wrench",
+            "category": "Pneumatic Tools",
+            "serial_number": "PNEU-2024-002",
+            "description": "High-power pneumatic impact wrench for assembly",
+            "employee": "technician2",
+            "maintenance_team": "Maintenance Team Beta",
+            "company": "TechCorp Manufacturing",
+            "work_center": "Assembly Line 2",
+            "status": "active"
+        }
+    ],
+    "maintenance_requests": [
+        {
+            "subject": "CNC Machine X2000 - Oil Change Required",
+            "maintenance_for": "equipment",
+            "equipment": "CNC Machine Model X2000",
+            "work_center": null,
+            "created_by": "admin",
+            "technician": "technician1",
+            "team": "Maintenance Team Alpha",
+            "scheduled_date": "2025-12-28T08:00:00",
+            "duration": "01:30:00",
+            "maintenance_type": "preventive",
+            "priority": 2,
+            "stage": "new",
+            "notes": "Regular preventive maintenance - check oil level and replace if needed",
+            "instructions": "Refer to manual section 3.2 for oil specifications"
+        },
+        {
+            "subject": "Hydraulic Press Station 2 - Pressure Test",
+            "maintenance_for": "equipment",
+            "equipment": "Hydraulic Press Station 2",
+            "work_center": null,
+            "created_by": "admin",
+            "technician": "technician1",
+            "team": "Maintenance Team Beta",
+            "scheduled_date": "2025-12-29T09:00:00",
+            "duration": "02:00:00",
+            "maintenance_type": "corrective",
+            "priority": 3,
+            "stage": "in_progress",
+            "notes": "Pressure gauge showing abnormal readings",
+            "instructions": "Test hydraulic pressure and replace seals if needed"
+        },
+        {
+            "subject": "Assembly Line 1 - Electrical Panel Inspection",
+            "maintenance_for": "work_center",
+            "equipment": null,
+            "work_center": "Assembly Line 1",
+            "created_by": "supervisor",
+            "technician": "supervisor",
+            "team": "Electrical Team",
+            "scheduled_date": "2025-12-30T10:00:00",
+            "duration": "01:00:00",
+            "maintenance_type": "preventive",
+            "priority": 2,
+            "stage": "new",
+            "notes": "Monthly electrical safety inspection",
+            "instructions": "Check all connections and test equipment grounding"
+        },
+        {
+            "subject": "Main Conveyor Belt - Speed Check",
+            "maintenance_for": "equipment",
+            "equipment": "Main Conveyor Belt System",
+            "work_center": null,
+            "created_by": "technician2",
+            "technician": "technician2",
+            "team": "Maintenance Team Beta",
+            "scheduled_date": "2025-12-31T14:00:00",
+            "duration": "00:45:00",
+            "maintenance_type": "preventive",
+            "priority": 1,
+            "stage": "new",
+            "notes": "Conveyor running slightly slower than expected",
+            "instructions": "Check belt tension and motor speed settings"
+        },
+        {
+            "subject": "Pneumatic Tools - General Inspection",
+            "maintenance_for": "equipment",
+            "equipment": "Pneumatic Drill Set",
+            "work_center": null,
+            "created_by": "technician1",
+            "technician": "technician1",
+            "team": "Maintenance Team Alpha",
+            "scheduled_date": "2026-01-02T08:30:00",
+            "duration": "00:30:00",
+            "maintenance_type": "preventive",
+            "priority": 1,
+            "stage": "new",
+            "notes": "Routine inspection and cleaning",
+            "instructions": "Clean air filters and check for leaks"
+        }
+    ]
+}

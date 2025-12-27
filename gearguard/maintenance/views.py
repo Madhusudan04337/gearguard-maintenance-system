@@ -21,6 +21,10 @@ def maintenance_create(request):
             maintenance_request.save()
             messages.success(request, 'Maintenance request created successfully.')
             return redirect('maintenance_list')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field}: {error}')
     else:
         form = MaintenanceRequestForm()
     return render(request, 'maintenance/form.html', {'form': form, 'title': 'New Maintenance Request'})
@@ -35,6 +39,10 @@ def maintenance_edit(request, pk):
             form.save()
             messages.success(request, 'Maintenance request updated.')
             return redirect('maintenance_list')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field}: {error}')
     else:
         form = MaintenanceRequestForm(instance=obj)
     return render(request, 'maintenance/form.html', {'form': form, 'title': 'Edit Request'})

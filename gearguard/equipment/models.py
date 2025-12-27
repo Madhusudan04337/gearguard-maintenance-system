@@ -16,6 +16,7 @@ class Equipment(models.Model):
     category = models.ForeignKey(EquipmentCategory, on_delete=models.SET_NULL, null=True, blank=True)
     serial_number = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
+    company = models.CharField(max_length=200, blank=True, null=True)
     
     # Relationships from workflow
     employee = models.ForeignKey(User, related_name='used_equipment', on_delete=models.SET_NULL, null=True, blank=True)

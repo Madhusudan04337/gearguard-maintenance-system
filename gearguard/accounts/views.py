@@ -59,8 +59,17 @@ def profile_edit(request):
 		messages.success(request, 'Profile updated successfully!')
 		return redirect('accounts:profile')
 	
+	# Pre-calculate role choices to avoid template comparison syntax errors
+	role_options = []
+	for value, label in UserProfile.ROLE_CHOICES:
+		role_options.append({
+			'value': value,
+			'label': label,
+			'selected': (value == user_profile.role)
+		})
+
 	context = {
 		'user_profile': user_profile,
-		'role_choices': UserProfile.ROLE_CHOICES
+		'role_options': role_options
 	}
-	return render(request, 'accounts/profile_edit.html', context)
+	return render(request, 'accounts/profile_edit_v2.html', context)

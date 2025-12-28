@@ -8,7 +8,7 @@ from .forms import MaintenanceRequestForm
 def maintenance_list(request):
     """View to list all maintenance requests."""
     items = MaintenanceRequest.objects.all().order_by('-request_date')
-    return render(request, 'maintenance/list.html', {'requests': items})
+    return render(request, 'maintenance/list_fixed.html', {'requests': items})
 
 @login_required
 def maintenance_create(request):

@@ -39,11 +39,11 @@ class Command(BaseCommand):
                 )
                 users_dict[user_data['username']] = user
                 if created:
-                    self.stdout.write(self.style.SUCCESS(f'  ✓ Created user: {user.username}'))
+                    self.stdout.write(self.style.SUCCESS(f'  [OK] Created user: {user.username}'))
                 else:
                     self.stdout.write(f'  - User already exists: {user.username}')
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'  ✗ Error creating user: {str(e)}'))
+                self.stdout.write(self.style.ERROR(f'  [ERR] Error creating user: {str(e)}'))
 
         # Create work centers
         self.stdout.write('\nCreating work centers...')
@@ -62,11 +62,11 @@ class Command(BaseCommand):
                 )
                 workcenters_dict[wc_data['name']] = wc
                 if created:
-                    self.stdout.write(self.style.SUCCESS(f'  ✓ Created work center: {wc.name}'))
+                    self.stdout.write(self.style.SUCCESS(f'  [OK] Created work center: {wc.name}'))
                 else:
                     self.stdout.write(f'  - Work center already exists: {wc.name}')
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'  ✗ Error creating work center: {str(e)}'))
+                self.stdout.write(self.style.ERROR(f'  [ERR] Error creating work center: {str(e)}'))
 
         # Create equipment categories
         self.stdout.write('\nCreating equipment categories...')
@@ -80,11 +80,11 @@ class Command(BaseCommand):
                 )
                 categories_dict[cat_data['name']] = cat
                 if created:
-                    self.stdout.write(self.style.SUCCESS(f'  ✓ Created category: {cat.name}'))
+                    self.stdout.write(self.style.SUCCESS(f'  [OK] Created category: {cat.name}'))
                 else:
                     self.stdout.write(f'  - Category already exists: {cat.name}')
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'  ✗ Error creating category: {str(e)}'))
+                self.stdout.write(self.style.ERROR(f'  [ERR] Error creating category: {str(e)}'))
 
         # Create teams
         self.stdout.write('\nCreating teams...')
@@ -101,11 +101,11 @@ class Command(BaseCommand):
                 )
                 teams_dict[team_data['name']] = team
                 if created:
-                    self.stdout.write(self.style.SUCCESS(f'  ✓ Created team: {team.name}'))
+                    self.stdout.write(self.style.SUCCESS(f'  [OK] Created team: {team.name}'))
                 else:
                     self.stdout.write(f'  - Team already exists: {team.name}')
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'  ✗ Error creating team: {str(e)}'))
+                self.stdout.write(self.style.ERROR(f'  [ERR] Error creating team: {str(e)}'))
 
         # Create equipment
         self.stdout.write('\nCreating equipment...')
@@ -117,25 +117,35 @@ class Command(BaseCommand):
                 maintenance_team = teams_dict.get(eq_data.get('maintenance_team'))
                 work_center = workcenters_dict.get(eq_data.get('work_center'))
                 
+                # Parse assigned_date
+                assigned_date = None
+                if eq_data.get('assigned_date'):
+                    try:
+                        assigned_date = datetime.strptime(eq_data['assigned_date'], '%Y-%m-%d').date()
+                    except:
+                        pass
+
                 equipment, created = Equipment.objects.get_or_create(
                     serial_number=eq_data['serial_number'],
                     defaults={
                         'name': eq_data['name'],
+                        'company': eq_data.get('company', ''),
                         'category': category,
                         'description': eq_data.get('description', ''),
                         'employee': employee,
                         'maintenance_team': maintenance_team,
                         'work_center': work_center,
+                        'assigned_date': assigned_date,
                         'status': eq_data.get('status', 'active'),
                     }
                 )
                 equipment_dict[eq_data['name']] = equipment
                 if created:
-                    self.stdout.write(self.style.SUCCESS(f'  ✓ Created equipment: {equipment.name}'))
+                    self.stdout.write(self.style.SUCCESS(f'  [OK] Created equipment: {equipment.name}'))
                 else:
                     self.stdout.write(f'  - Equipment already exists: {equipment.name}')
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'  ✗ Error creating equipment: {str(e)}'))
+                self.stdout.write(self.style.ERROR(f'  [ERR] Error creating equipment: {str(e)}'))
 
         # Create maintenance requests
         self.stdout.write('\nCreating maintenance requests...')
@@ -185,10 +195,10 @@ class Command(BaseCommand):
                     }
                 )
                 if created:
-                    self.stdout.write(self.style.SUCCESS(f'  ✓ Created maintenance request: {request.subject}'))
+                    self.stdout.write(self.style.SUCCESS(f'  [OK] Created maintenance request: {request.subject}'))
                 else:
                     self.stdout.write(f'  - Request already exists: {request.subject}')
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'  ✗ Error creating maintenance request: {str(e)}'))
+                self.stdout.write(self.style.ERROR(f'  [ERR] Error creating maintenance request: {str(e)}'))
 
-        self.stdout.write('\n' + self.style.SUCCESS('✓ Database seeding completed successfully!'))
+        self.stdout.write('\n' + self.style.SUCCESS('[OK] Database seeding completed successfully!'))
